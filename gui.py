@@ -32,8 +32,8 @@ if platform.system() != 'Windows':
 #config_tab = ConfigTab()
 
 #xml_file = os.path.join('data', 'PhysiCell_settings.xml')
-xml_file = os.path.join('..', '..', 'config', 'PhysiCell_settings.xml')
-xml_file = os.path.join('..', 'bogus 'config', 'PhysiCell_settings.xml')
+#xml_file = os.path.join('..', '..', 'config', 'PhysiCell_settings.xml')
+xml_file = os.path.join('..', 'bogus', 'config', 'PhysiCell_settings.xml')
 full_xml_filename = os.path.abspath(xml_file)
 
 config_valid = True
