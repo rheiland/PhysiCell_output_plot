@@ -32,7 +32,8 @@ if platform.system() != 'Windows':
 #config_tab = ConfigTab()
 
 #xml_file = os.path.join('data', 'PhysiCell_settings.xml')
-xml_file = os.path.join('..', 'config', 'PhysiCell_settings.xml')
+xml_file = os.path.join('..', '..', 'config', 'PhysiCell_settings.xml')
+xml_file = os.path.join('..', 'bogus 'config', 'PhysiCell_settings.xml')
 full_xml_filename = os.path.abspath(xml_file)
 
 config_valid = True
@@ -330,7 +331,8 @@ if nanoHUB_flag:
 else:
     top_row = widgets.HBox(children=[tool_title])
     # gui = widgets.VBox(children=[top_row, tabs, run_button.w])
-    gui = widgets.VBox(children=[tabs, run_button.w])
+    # gui = widgets.VBox(children=[tabs, run_button.w])
+    gui = widgets.VBox(children=[tabs])
 
 if config_valid:
     fill_gui_params(read_config.options['DEFAULT'])
