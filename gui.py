@@ -32,8 +32,8 @@ if platform.system() != 'Windows':
 #config_tab = ConfigTab()
 
 #xml_file = os.path.join('data', 'PhysiCell_settings.xml')
-#xml_file = os.path.join('..', '..', 'config', 'PhysiCell_settings.xml')
-xml_file = os.path.join('..', 'bogus', 'config', 'PhysiCell_settings.xml')
+#xml_file = os.path.join('..', 'bogus', 'config', 'PhysiCell_settings.xml')
+xml_file = os.path.join('..', '..', 'config', 'PhysiCell_settings.xml')
 full_xml_filename = os.path.abspath(xml_file)
 
 config_valid = True
@@ -273,6 +273,14 @@ def run_button_cb(s):
 #    subprocess.call(["myproj", new_config_file], shell=True)  # no
     subprocess.Popen(["myproj", new_config_file])
 
+
+# Callback for the 'Write' button (without hublib.ui)
+def write_button_cb(s):
+    new_config_file = full_xml_filename
+    # print("Updating ",new_config_file)
+    write_config_file(new_config_file)
+
+
 if nanoHUB_flag:
     run_button = Submit(label='Run',
                        start_func=run_sim_func,
@@ -287,13 +295,25 @@ else:
                             cachename='tool4nanobio',
                             showcache=False,
                             outcb=outcb)  
+        write_button = widgets.Button(
+            description='Write',
+            button_style='success',  # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Update config file (.xml)',
+        )
+        write_button.on_click(write_button_cb)
     else:
         run_button = widgets.Button(
             description='Run',
             button_style='success',  # 'success', 'info', 'warning', 'danger' or ''
             tooltip='Run a simulation',
         )
-        run_button.on_click(run_button_cb)
+        write_button = widgets.Button(
+            description='Write',
+            button_style='success',  # 'success', 'info', 'warning', 'danger' or ''
+            tooltip='Update config file (.xml)',
+        )
+        # run_button.on_click(run_button_cb)
+        write_button.on_click(write_button_cb)
 
 
 read_config = widgets.Dropdown(
@@ -331,8 +351,8 @@ if nanoHUB_flag:
 else:
     top_row = widgets.HBox(children=[tool_title])
     # gui = widgets.VBox(children=[top_row, tabs, run_button.w])
-    # gui = widgets.VBox(children=[tabs, run_button.w])
-    gui = widgets.VBox(children=[tabs])
+    gui = widgets.VBox(children=[tabs, write_button])
+    #gui = widgets.VBox(children=[tabs])
 
 if config_valid:
     fill_gui_params(read_config.options['DEFAULT'])
