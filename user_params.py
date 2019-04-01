@@ -4,7 +4,7 @@
 # Edit at your own risk.
 #
 import os
-from ipywidgets import Label,Text,Checkbox,Button,HBox,VBox,FloatText,IntText,BoundedIntText,BoundedFloatText
+from ipywidgets import Label,Text,Checkbox,Button,HBox,VBox,FloatText,IntText,BoundedIntText,BoundedFloatText,Layout,Box
     
 class UserTab(object):
 
@@ -16,323 +16,232 @@ class UserTab(object):
         tab_height = '500px'
         stepsize = 10
 
-        style = {'description_width': '250px'}
+        #style = {'description_width': '250px'}
+        style = {'description_width': '25%'}
         layout = {'width': '400px'}
 
-        self.resource_D = FloatText(
-          description='resource_D',
-          value=100000,
-          step=10000,
-          style=style, layout=layout)
+        name_button_layout={'width':'25%'}
+        widget_layout = {'width': '15%'}
+        units_button_layout ={'width':'15%'}
+        desc_button_layout={'width':'45%'}
 
-        self.resource_lambda = FloatText(
-          description='resource_lambda',
-          value=0.1,
-          step=0.01,
-          style=style, layout=layout)
+        param_name1 = Button(description='tumor_radius', disabled=True, layout=name_button_layout)
+        param_name1.style.button_color = 'lightgreen'
 
-        self.quorum_D = FloatText(
-          description='quorum_D',
-          value=100000,
-          step=10000,
-          style=style, layout=layout)
+        self.tumor_radius = FloatText(
+          value=250.0,
+          step=10,
+          style=style, layout=widget_layout)
 
-        self.quorum_lambda = FloatText(
-          description='quorum_lambda',
-          value=10,
-          step=1,
-          style=style, layout=layout)
+        param_name2 = Button(description='oncoprotein_mean', disabled=True, layout=name_button_layout)
+        param_name2.style.button_color = 'tan'
 
-        self.death_signal_D = FloatText(
-          description='death_signal_D',
-          value=40000,
-          step=1000,
-          style=style, layout=layout)
-
-        self.death_signal_lambda = FloatText(
-          description='death_signal_lambda',
-          value=1,
+        self.oncoprotein_mean = FloatText(
+          value=1.0,
           step=0.1,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.signal_D = FloatText(
-          description='signal_D',
-          value=25000,
-          step=1000,
-          style=style, layout=layout)
+        param_name3 = Button(description='oncoprotein_sd', disabled=True, layout=name_button_layout)
+        param_name3.style.button_color = 'lightgreen'
 
-        self.signal_lambda = FloatText(
-          description='signal_lambda',
-          value=.1,
-          step=0.01,
-          style=style, layout=layout)
-
-        self.poison_D = FloatText(
-          description='poison_D',
-          value=50000,
-          step=1000,
-          style=style, layout=layout)
-
-        self.poison_lambda = FloatText(
-          description='poison_lambda',
-          value=20,
-          step=1,
-          style=style, layout=layout)
-
-        self.number_of_invaders = IntText(
-          description='number_of_invaders',
-          value=15,
-          step=1,
-          style=style, layout=layout)
-
-        self.number_of_suppliers = IntText(
-          description='number_of_suppliers',
-          value=50,
-          step=1,
-          style=style, layout=layout)
-
-        self.number_of_scouts = IntText(
-          description='number_of_scouts',
-          value=10,
-          step=1,
-          style=style, layout=layout)
-
-        self.number_of_attackers = IntText(
-          description='number_of_attackers',
-          value=50,
-          step=1,
-          style=style, layout=layout)
-
-        self.invader_max_birth_rate = FloatText(
-          description='invader_max_birth_rate',
-          value=0.0028,
-          step=0.0001,
-          style=style, layout=layout)
-
-        self.invader_max_death_rate = FloatText(
-          description='invader_max_death_rate',
-          value=0.001,
-          step=0.0001,
-          style=style, layout=layout)
-
-        self.invader_persistence_time = FloatText(
-          description='invader_persistence_time',
-          value=15,
-          step=1,
-          style=style, layout=layout)
-
-        self.invader_migration_speed = FloatText(
-          description='invader_migration_speed',
+        self.oncoprotein_sd = FloatText(
           value=0.25,
           step=0.01,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.invader_migration_bias = FloatText(
-          description='invader_migration_bias',
-          value=0.5,
-          step=0.1,
-          style=style, layout=layout)
+        param_name4 = Button(description='oncoprotein_min', disabled=True, layout=name_button_layout)
+        param_name4.style.button_color = 'tan'
 
-        self.invader_secretion_rate = FloatText(
-          description='invader_secretion_rate',
-          value=100,
-          step=10,
-          style=style, layout=layout)
-
-        self.invader_quorum_weight = FloatText(
-          description='invader_quorum_weight',
-          value=.1,
+        self.oncoprotein_min = FloatText(
+          value=0.0,
           step=0.01,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.scout_persistence_time = FloatText(
-          description='scout_persistence_time',
-          value=15,
+        param_name5 = Button(description='oncoprotein_max', disabled=True, layout=name_button_layout)
+        param_name5.style.button_color = 'lightgreen'
+
+        self.oncoprotein_max = FloatText(
+          value=2,
+          step=0.1,
+          style=style, layout=widget_layout)
+
+        param_name6 = Button(description='random_seed', disabled=True, layout=name_button_layout)
+        param_name6.style.button_color = 'tan'
+
+        self.random_seed = IntText(
+          value=0,
           step=1,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.scout_migration_speed = FloatText(
-          description='scout_migration_speed',
-          value=.5,
-          step=0.1,
-          style=style, layout=layout)
+        param_name7 = Button(description='cancerous_astrocyte_non_motile_speed', disabled=True, layout=name_button_layout)
+        param_name7.style.button_color = 'lightgreen'
 
-        self.scout_migration_bias = FloatText(
-          description='scout_migration_bias',
-          value=0.125,
-          step=0.01,
-          style=style, layout=layout)
-
-        self.scout_secretion_rate = FloatText(
-          description='scout_secretion_rate',
-          value=100,
-          step=10,
-          style=style, layout=layout)
-
-        self.scout_signal_threshold = FloatText(
-          description='scout_signal_threshold',
+        self.cancerous_astrocyte_non_motile_speed = FloatText(
           value=0.1,
           step=0.01,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.attacker_max_birth_rate = FloatText(
-          description='attacker_max_birth_rate',
-          value=0.0005,
-          step=0.0001,
-          style=style, layout=layout)
+        param_name8 = Button(description='cancerous_astrocyte_apoptosis_rate', disabled=True, layout=name_button_layout)
+        param_name8.style.button_color = 'tan'
 
-        self.attacker_max_death_rate = FloatText(
-          description='attacker_max_death_rate',
-          value=0.0001,
+        self.cancerous_astrocyte_apoptosis_rate = FloatText(
+          value=4.065e-5,
           step=1e-05,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.attacker_persistence_time = FloatText(
-          description='attacker_persistence_time',
-          value=15,
-          step=1,
-          style=style, layout=layout)
+        param_name9 = Button(description='cancerous_astrocyte_cell_cell_adhesion_strength', disabled=True, layout=name_button_layout)
+        param_name9.style.button_color = 'lightgreen'
 
-        self.attacker_migration_speed = FloatText(
-          description='attacker_migration_speed',
-          value=1,
-          step=0.1,
-          style=style, layout=layout)
-
-        self.attacker_migration_bias = FloatText(
-          description='attacker_migration_bias',
-          value=0.25,
-          step=0.01,
-          style=style, layout=layout)
-
-        self.attacker_secretion_rate = FloatText(
-          description='attacker_secretion_rate',
-          value=100,
-          step=10,
-          style=style, layout=layout)
-
-        self.attacker_signal_threshold = FloatText(
-          description='attacker_signal_threshold',
+        self.cancerous_astrocyte_cell_cell_adhesion_strength = FloatText(
           value=0.1,
           step=0.01,
-          style=style, layout=layout)
+          style=style, layout=widget_layout)
 
-        self.supplier_secretion_rate = FloatText(
-          description='supplier_secretion_rate',
-          value=100,
-          step=10,
-          style=style, layout=layout)
+        param_name10 = Button(description='microglia_motile_speed', disabled=True, layout=name_button_layout)
+        param_name10.style.button_color = 'tan'
+
+        self.microglia_motile_speed = FloatText(
+          value=2,
+          step=0.1,
+          style=style, layout=widget_layout)
+
+        param_name11 = Button(description='microglia_macrophage_biasing_detection_threshold', disabled=True, layout=name_button_layout)
+        param_name11.style.button_color = 'lightgreen'
+
+        self.microglia_macrophage_biasing_detection_threshold = FloatText(
+          value=0.1,
+          step=0.01,
+          style=style, layout=widget_layout)
+
+        param_name12 = Button(description='transfer_to_cancerous_threshold', disabled=True, layout=name_button_layout)
+        param_name12.style.button_color = 'tan'
+
+        self.transfer_to_cancerous_threshold = FloatText(
+          value=0.1,
+          step=0.01,
+          style=style, layout=widget_layout)
+
+        units_button1 = Button(description='micron', disabled=True, layout=units_button_layout) 
+        units_button1.style.button_color = 'lightgreen'
+        units_button2 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button2.style.button_color = 'tan'
+        units_button3 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button3.style.button_color = 'lightgreen'
+        units_button4 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button4.style.button_color = 'tan'
+        units_button5 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button5.style.button_color = 'lightgreen'
+        units_button6 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button6.style.button_color = 'tan'
+        units_button7 = Button(description='micron/min', disabled=True, layout=units_button_layout) 
+        units_button7.style.button_color = 'lightgreen'
+        units_button8 = Button(description='1/min', disabled=True, layout=units_button_layout) 
+        units_button8.style.button_color = 'tan'
+        units_button9 = Button(description='micron/min', disabled=True, layout=units_button_layout) 
+        units_button9.style.button_color = 'lightgreen'
+        units_button10 = Button(description='micron/min', disabled=True, layout=units_button_layout) 
+        units_button10.style.button_color = 'tan'
+        units_button11 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button11.style.button_color = 'lightgreen'
+        units_button12 = Button(description='', disabled=True, layout=units_button_layout) 
+        units_button12.style.button_color = 'tan'
+
+        desc_button1 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button1.style.button_color = 'lightgreen'
+        desc_button2 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button2.style.button_color = 'tan'
+        desc_button3 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button3.style.button_color = 'lightgreen'
+        desc_button4 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button4.style.button_color = 'tan'
+        desc_button5 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button5.style.button_color = 'lightgreen'
+        desc_button6 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button6.style.button_color = 'tan'
+        desc_button7 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button7.style.button_color = 'lightgreen'
+        desc_button8 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button8.style.button_color = 'tan'
+        desc_button9 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button9.style.button_color = 'lightgreen'
+        desc_button10 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button10.style.button_color = 'tan'
+        desc_button11 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button11.style.button_color = 'lightgreen'
+        desc_button12 = Button(description='', disabled=True, layout=desc_button_layout) 
+        desc_button12.style.button_color = 'tan'
+
+        row1 = [param_name1, self.tumor_radius, units_button1, desc_button1] 
+        row2 = [param_name2, self.oncoprotein_mean, units_button2, desc_button2] 
+        row3 = [param_name3, self.oncoprotein_sd, units_button3, desc_button3] 
+        row4 = [param_name4, self.oncoprotein_min, units_button4, desc_button4] 
+        row5 = [param_name5, self.oncoprotein_max, units_button5, desc_button5] 
+        row6 = [param_name6, self.random_seed, units_button6, desc_button6] 
+        row7 = [param_name7, self.cancerous_astrocyte_non_motile_speed, units_button7, desc_button7] 
+        row8 = [param_name8, self.cancerous_astrocyte_apoptosis_rate, units_button8, desc_button8] 
+        row9 = [param_name9, self.cancerous_astrocyte_cell_cell_adhesion_strength, units_button9, desc_button9] 
+        row10 = [param_name10, self.microglia_motile_speed, units_button10, desc_button10] 
+        row11 = [param_name11, self.microglia_macrophage_biasing_detection_threshold, units_button11, desc_button11] 
+        row12 = [param_name12, self.transfer_to_cancerous_threshold, units_button12, desc_button12] 
+
+        box_layout = Layout(display='flex', flex_flow='row', align_items='stretch', width='100%')
+        box1 = Box(children=row1, layout=box_layout)
+        box2 = Box(children=row2, layout=box_layout)
+        box3 = Box(children=row3, layout=box_layout)
+        box4 = Box(children=row4, layout=box_layout)
+        box5 = Box(children=row5, layout=box_layout)
+        box6 = Box(children=row6, layout=box_layout)
+        box7 = Box(children=row7, layout=box_layout)
+        box8 = Box(children=row8, layout=box_layout)
+        box9 = Box(children=row9, layout=box_layout)
+        box10 = Box(children=row10, layout=box_layout)
+        box11 = Box(children=row11, layout=box_layout)
+        box12 = Box(children=row12, layout=box_layout)
 
         self.tab = VBox([
-          HBox([self.resource_D, Label('micron^2/min (resource diffusion coefficient)')]), 
-          HBox([self.resource_lambda, Label('1/min (resource decay rate)')]), 
-          HBox([self.quorum_D, Label('micron^2/min (quorum diffusion coefficient)')]), 
-          HBox([self.quorum_lambda, Label('1/min (quorum decay rate)')]), 
-          HBox([self.death_signal_D, Label('micron^2/min (death signal diffusion coefficient)')]), 
-          HBox([self.death_signal_lambda, Label('1/min (death signal decay rate)')]), 
-          HBox([self.signal_D, Label('micron^2/min (attack signal diffusion coefficient)')]), 
-          HBox([self.signal_lambda, Label('1/min (attack signal decay rate)')]), 
-          HBox([self.poison_D, Label('micron^2/min (poison diffusion coefficient)')]), 
-          HBox([self.poison_lambda, Label('1/min (poison decay rate)')]), 
-          HBox([self.number_of_invaders, Label(' (number of randomly placed invaders)')]), 
-          HBox([self.number_of_suppliers, Label(' (number of randomly placed suppliers)')]), 
-          HBox([self.number_of_scouts, Label(' (number of randomly placed scouts)')]), 
-          HBox([self.number_of_attackers, Label(' (number of randomly placed attackers)')]), 
-          HBox([self.invader_max_birth_rate, Label('1/min (max birth rate for invaders)')]), 
-          HBox([self.invader_max_death_rate, Label('1/min (max death rate for invaders)')]), 
-          HBox([self.invader_persistence_time, Label('min (persistence time for invader migration)')]), 
-          HBox([self.invader_migration_speed, Label('micron/min (speed of invader cells)')]), 
-          HBox([self.invader_migration_bias, Label(' (invader migration bias)')]), 
-          HBox([self.invader_secretion_rate, Label('1/min (rate invaders secrete their signals)')]), 
-          HBox([self.invader_quorum_weight, Label(' (motile direction = w*grad(Q) - (1-w)*grad(D))')]), 
-          HBox([self.scout_persistence_time, Label('min (persistence time for scout migration)')]), 
-          HBox([self.scout_migration_speed, Label('micron/min (speed of scout cells)')]), 
-          HBox([self.scout_migration_bias, Label(' (scout migration bias)')]), 
-          HBox([self.scout_secretion_rate, Label('1/min (rate scouts secrete their signals)')]), 
-          HBox([self.scout_signal_threshold, Label(' (scouts release S if Q > threshold)')]), 
-          HBox([self.attacker_max_birth_rate, Label('1/min (max birth rate for attackers)')]), 
-          HBox([self.attacker_max_death_rate, Label('1/min (max death rate for attackers)')]), 
-          HBox([self.attacker_persistence_time, Label('min (persistence time for attacker migration)')]), 
-          HBox([self.attacker_migration_speed, Label('micron/min (speed of attacker cells)')]), 
-          HBox([self.attacker_migration_bias, Label(' (attacker migration bias)')]), 
-          HBox([self.attacker_secretion_rate, Label('1/min (rate attackers secrete their signals)')]), 
-          HBox([self.attacker_signal_threshold, Label(' (attackers release P if S > threshold)')]), 
-          HBox([self.supplier_secretion_rate, Label('1/min (rate suppliers release resource)')]), 
+          box1,
+          box2,
+          box3,
+          box4,
+          box5,
+          box6,
+          box7,
+          box8,
+          box9,
+          box10,
+          box11,
+          box12,
         ])
 
     # Populate the GUI widgets with values from the XML
     def fill_gui(self, xml_root):
         uep = xml_root.find('.//user_parameters')  # find unique entry point into XML
-        self.resource_D.value = float(uep.find('.//resource_D').text)
-        self.resource_lambda.value = float(uep.find('.//resource_lambda').text)
-        self.quorum_D.value = float(uep.find('.//quorum_D').text)
-        self.quorum_lambda.value = float(uep.find('.//quorum_lambda').text)
-        self.death_signal_D.value = float(uep.find('.//death_signal_D').text)
-        self.death_signal_lambda.value = float(uep.find('.//death_signal_lambda').text)
-        self.signal_D.value = float(uep.find('.//signal_D').text)
-        self.signal_lambda.value = float(uep.find('.//signal_lambda').text)
-        self.poison_D.value = float(uep.find('.//poison_D').text)
-        self.poison_lambda.value = float(uep.find('.//poison_lambda').text)
-        self.number_of_invaders.value = int(uep.find('.//number_of_invaders').text)
-        self.number_of_suppliers.value = int(uep.find('.//number_of_suppliers').text)
-        self.number_of_scouts.value = int(uep.find('.//number_of_scouts').text)
-        self.number_of_attackers.value = int(uep.find('.//number_of_attackers').text)
-        self.invader_max_birth_rate.value = float(uep.find('.//invader_max_birth_rate').text)
-        self.invader_max_death_rate.value = float(uep.find('.//invader_max_death_rate').text)
-        self.invader_persistence_time.value = float(uep.find('.//invader_persistence_time').text)
-        self.invader_migration_speed.value = float(uep.find('.//invader_migration_speed').text)
-        self.invader_migration_bias.value = float(uep.find('.//invader_migration_bias').text)
-        self.invader_secretion_rate.value = float(uep.find('.//invader_secretion_rate').text)
-        self.invader_quorum_weight.value = float(uep.find('.//invader_quorum_weight').text)
-        self.scout_persistence_time.value = float(uep.find('.//scout_persistence_time').text)
-        self.scout_migration_speed.value = float(uep.find('.//scout_migration_speed').text)
-        self.scout_migration_bias.value = float(uep.find('.//scout_migration_bias').text)
-        self.scout_secretion_rate.value = float(uep.find('.//scout_secretion_rate').text)
-        self.scout_signal_threshold.value = float(uep.find('.//scout_signal_threshold').text)
-        self.attacker_max_birth_rate.value = float(uep.find('.//attacker_max_birth_rate').text)
-        self.attacker_max_death_rate.value = float(uep.find('.//attacker_max_death_rate').text)
-        self.attacker_persistence_time.value = float(uep.find('.//attacker_persistence_time').text)
-        self.attacker_migration_speed.value = float(uep.find('.//attacker_migration_speed').text)
-        self.attacker_migration_bias.value = float(uep.find('.//attacker_migration_bias').text)
-        self.attacker_secretion_rate.value = float(uep.find('.//attacker_secretion_rate').text)
-        self.attacker_signal_threshold.value = float(uep.find('.//attacker_signal_threshold').text)
-        self.supplier_secretion_rate.value = float(uep.find('.//supplier_secretion_rate').text)
+        self.tumor_radius.value = float(uep.find('.//tumor_radius').text)
+        self.oncoprotein_mean.value = float(uep.find('.//oncoprotein_mean').text)
+        self.oncoprotein_sd.value = float(uep.find('.//oncoprotein_sd').text)
+        self.oncoprotein_min.value = float(uep.find('.//oncoprotein_min').text)
+        self.oncoprotein_max.value = float(uep.find('.//oncoprotein_max').text)
+        self.random_seed.value = int(uep.find('.//random_seed').text)
+        self.cancerous_astrocyte_non_motile_speed.value = float(uep.find('.//cancerous_astrocyte_non_motile_speed').text)
+        self.cancerous_astrocyte_apoptosis_rate.value = float(uep.find('.//cancerous_astrocyte_apoptosis_rate').text)
+        self.cancerous_astrocyte_cell_cell_adhesion_strength.value = float(uep.find('.//cancerous_astrocyte_cell_cell_adhesion_strength').text)
+        self.microglia_motile_speed.value = float(uep.find('.//microglia_motile_speed').text)
+        self.microglia_macrophage_biasing_detection_threshold.value = float(uep.find('.//microglia_macrophage_biasing_detection_threshold').text)
+        self.transfer_to_cancerous_threshold.value = float(uep.find('.//transfer_to_cancerous_threshold').text)
 
 
     # Read values from the GUI widgets to enable editing XML
     def fill_xml(self, xml_root):
         uep = xml_root.find('.//user_parameters')  # find unique entry point into XML 
-        uep.find('.//resource_D').text = str(self.resource_D.value)
-        uep.find('.//resource_lambda').text = str(self.resource_lambda.value)
-        uep.find('.//quorum_D').text = str(self.quorum_D.value)
-        uep.find('.//quorum_lambda').text = str(self.quorum_lambda.value)
-        uep.find('.//death_signal_D').text = str(self.death_signal_D.value)
-        uep.find('.//death_signal_lambda').text = str(self.death_signal_lambda.value)
-        uep.find('.//signal_D').text = str(self.signal_D.value)
-        uep.find('.//signal_lambda').text = str(self.signal_lambda.value)
-        uep.find('.//poison_D').text = str(self.poison_D.value)
-        uep.find('.//poison_lambda').text = str(self.poison_lambda.value)
-        uep.find('.//number_of_invaders').text = str(self.number_of_invaders.value)
-        uep.find('.//number_of_suppliers').text = str(self.number_of_suppliers.value)
-        uep.find('.//number_of_scouts').text = str(self.number_of_scouts.value)
-        uep.find('.//number_of_attackers').text = str(self.number_of_attackers.value)
-        uep.find('.//invader_max_birth_rate').text = str(self.invader_max_birth_rate.value)
-        uep.find('.//invader_max_death_rate').text = str(self.invader_max_death_rate.value)
-        uep.find('.//invader_persistence_time').text = str(self.invader_persistence_time.value)
-        uep.find('.//invader_migration_speed').text = str(self.invader_migration_speed.value)
-        uep.find('.//invader_migration_bias').text = str(self.invader_migration_bias.value)
-        uep.find('.//invader_secretion_rate').text = str(self.invader_secretion_rate.value)
-        uep.find('.//invader_quorum_weight').text = str(self.invader_quorum_weight.value)
-        uep.find('.//scout_persistence_time').text = str(self.scout_persistence_time.value)
-        uep.find('.//scout_migration_speed').text = str(self.scout_migration_speed.value)
-        uep.find('.//scout_migration_bias').text = str(self.scout_migration_bias.value)
-        uep.find('.//scout_secretion_rate').text = str(self.scout_secretion_rate.value)
-        uep.find('.//scout_signal_threshold').text = str(self.scout_signal_threshold.value)
-        uep.find('.//attacker_max_birth_rate').text = str(self.attacker_max_birth_rate.value)
-        uep.find('.//attacker_max_death_rate').text = str(self.attacker_max_death_rate.value)
-        uep.find('.//attacker_persistence_time').text = str(self.attacker_persistence_time.value)
-        uep.find('.//attacker_migration_speed').text = str(self.attacker_migration_speed.value)
-        uep.find('.//attacker_migration_bias').text = str(self.attacker_migration_bias.value)
-        uep.find('.//attacker_secretion_rate').text = str(self.attacker_secretion_rate.value)
-        uep.find('.//attacker_signal_threshold').text = str(self.attacker_signal_threshold.value)
-        uep.find('.//supplier_secretion_rate').text = str(self.supplier_secretion_rate.value)
+        uep.find('.//tumor_radius').text = str(self.tumor_radius.value)
+        uep.find('.//oncoprotein_mean').text = str(self.oncoprotein_mean.value)
+        uep.find('.//oncoprotein_sd').text = str(self.oncoprotein_sd.value)
+        uep.find('.//oncoprotein_min').text = str(self.oncoprotein_min.value)
+        uep.find('.//oncoprotein_max').text = str(self.oncoprotein_max.value)
+        uep.find('.//random_seed').text = str(self.random_seed.value)
+        uep.find('.//cancerous_astrocyte_non_motile_speed').text = str(self.cancerous_astrocyte_non_motile_speed.value)
+        uep.find('.//cancerous_astrocyte_apoptosis_rate').text = str(self.cancerous_astrocyte_apoptosis_rate.value)
+        uep.find('.//cancerous_astrocyte_cell_cell_adhesion_strength').text = str(self.cancerous_astrocyte_cell_cell_adhesion_strength.value)
+        uep.find('.//microglia_motile_speed').text = str(self.microglia_motile_speed.value)
+        uep.find('.//microglia_macrophage_biasing_detection_threshold').text = str(self.microglia_macrophage_biasing_detection_threshold.value)
+        uep.find('.//transfer_to_cancerous_threshold').text = str(self.transfer_to_cancerous_threshold.value)
